@@ -151,7 +151,7 @@ water.rotation.x=-Math.PI/2; water.position.y=-1; scene.add(water);
 function buildIsland(x,z,radius,grassRadius,label,grassColor){
   const g=new THREE.Group(); g.position.set(x,-2,z); scene.add(g);
   g.add(new THREE.Mesh(new THREE.CylinderGeometry(radius,radius+4,4,64),new THREE.MeshStandardMaterial({map:sandTex})));
-  const gr=new THREE.Mesh(new THREE.CylinderGeometry(grassRadius,grassRadius+2,0.5,32),new THREE.MeshStandardMaterial({color:grassColor||0x27ae60}));
+  const gr=new THREE.Mesh(new THREE.CylinderGeometry(grassRadius,grassRadius+2,0.5,32),new THREE.MeshStandardMaterial({map:grassTex}));
   gr.position.y=2.3; g.add(gr);
   // Palm tree
   const trunk=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.6,6,8),new THREE.MeshStandardMaterial({color:0x8B6914}));
