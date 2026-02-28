@@ -151,7 +151,7 @@ water.rotation.x=-Math.PI/2; water.position.y=-1; scene.add(water);
 function buildIsland(x,z,radius,grassRadius,label,grassColor){
   const g=new THREE.Group(); g.position.set(x,-2,z); scene.add(g);
   g.add(new THREE.Mesh(new THREE.CylinderGeometry(radius,radius+4,4,64),new THREE.MeshStandardMaterial({map:sandTex})));
-  const gr=new THREE.Mesh(new THREE.CylinderGeometry(grassRadius,grassRadius+2,0.5,32),new THREE.MeshStandardMaterial({map:grassTex}));
+  const gr=new THREE.Mesh(new THREE.CylinderGeometry(grassRadius,grassRadius+2,0.5,32),new THREE.MeshStandardMaterial({color:grassColor||0x27ae60}));
   gr.position.y=2.3; g.add(gr);
   // Palm tree
   const trunk=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.6,6,8),new THREE.MeshStandardMaterial({color:0x8B6914}));
@@ -193,7 +193,8 @@ lava.position.set(-600,-502.5,-500); scene.add(lava);
 // ═══════ SHOP BUILDER ═══════
 function buildShop(px,pz,label){
   const g=new THREE.Group(); g.position.set(px,0,pz); g.scale.set(1.4,1.4,1.4); scene.add(g);
-  g.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(10,0.6,6),new THREE.MeshStandardMaterial({map:floorTex})),{position:{x:0,y:0.3,z:0,set(x,y,z){this.x=x;this.y=y;this.z=z;return this;}}}));
+  const fl=new THREE.Mesh(new THREE.BoxGeometry(10,0.6,6),new THREE.MeshStandardMaterial({map:floorTex}));
+  fl.position.y=0.3; g.add(fl);
   const wm=new THREE.MeshStandardMaterial({map:wallTex});
   [new THREE.Mesh(new THREE.BoxGeometry(10,7,0.4),wm),
    new THREE.Mesh(new THREE.BoxGeometry(0.4,7,6),wm),
@@ -488,11 +489,7 @@ function movePlayer(dt){
           b.active=true;b.life=1;b.mesh.visible=true;
           b.mesh.position.copy(player.position);
           b.mesh.position.y+=0.5;
-          b.vel.set(
-           (Math.random() - 0.5) * 0.06,
-           Math.random() * 0.1 + 0.05,
-          (Math.random() - 0.5) * 0.06
-           );
+          b.vel.set((Math.random()-.5)*0.06,0.04+Math.random()*0.04,(Math.random()-.5)*0.06);
           break;
         }
       }
@@ -1269,3 +1266,9 @@ Object.defineProperty(window,'isFishing', {get:()=>isFishing, set:v=>{isFishing=
 Object.defineProperty(window,'isSwimming',{get:()=>isSwimming,set:v=>{isSwimming=v;}});
 Object.defineProperty(window,'onJetski',  {get:()=>onJetski,  set:v=>{onJetski=v;}});
 Object.defineProperty(window,'freezeInput',{get:()=>freezeInput,set:v=>{freezeInput=v;}});
+
+// Expose extra globals for owner panel
+window.weatherTypes = weatherTypes;
+window.setWeather   = setWeather;
+window.coins        = coins; // expose via getter/setter
+Object.defineProperty(window,'coins',{get:()=>coins,set:v=>{coins=v;}});
