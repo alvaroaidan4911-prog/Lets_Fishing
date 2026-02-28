@@ -488,7 +488,6 @@ function renderWorldTab(el) {
     </div>
   `;
     el.querySelectorAll('input').forEach(i=>i.addEventListener('keydown',e=>e.stopPropagation()));
-
 }
 
 function ownerTeleportBtnStyle() {
