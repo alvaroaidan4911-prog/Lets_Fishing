@@ -20,6 +20,3 @@ self.addEventListener("fetch", e=>{
    .then(res=> res || fetch(e.request))
  );
 });
-
-// Cache dimatikan sementara — untuk development
-self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
