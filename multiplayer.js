@@ -94,13 +94,48 @@ function unbanPlayer(playerName) {
 // Broadcast pesan ke semua player
 function ownerBroadcast(message) {
   if (!db || !message.trim()) return;
-  db.ref(`rooms/${roomId}/chat`).push({
-    name: "📢 OWNER",
+  db.ref(`rooms/${roomId}/broadcast`).set({
     text: message,
-    senderId: "server",
     ts: Date.now()
   });
-  addSystemMsg(`📢 Broadcast: "${message}"`);
+  showBroadcastBanner(message); // tampil ke owner juga
+  addSystemMsg(`📢 Broadcast dikirim: "${message}"`);
+}
+
+function showBroadcastBanner(text) {
+  // Hapus banner lama kalau ada
+  const old = document.getElementById("broadcastBanner");
+  if (old) old.remove();
+
+  const banner = document.createElement("div");
+  banner.id = "broadcastBanner";
+  banner.textContent = "📢 " + text;
+  Object.assign(banner.style, {
+    position: "fixed",
+    top: "18px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "linear-gradient(135deg,#f39c12,#e67e22)",
+    color: "#fff",
+    padding: "12px 24px",
+    borderRadius: "14px",
+    fontSize: "15px",
+    fontWeight: "bold",
+    zIndex: "99999",
+    boxShadow: "0 4px 20px rgba(243,156,18,0.6)",
+    textAlign: "center",
+    maxWidth: "85vw",
+    animation: "broadcastAnim 0.4s ease-out",
+    whiteSpace: "nowrap"
+  });
+  document.body.appendChild(banner);
+
+  // Hilang otomatis setelah 5 detik
+  setTimeout(() => {
+    banner.style.transition = "opacity 0.5s";
+    banner.style.opacity = "0";
+    setTimeout(() => banner.remove(), 500);
+  }, 5000);
 }
 
 // Ganti cuaca untuk semua player
@@ -855,6 +890,15 @@ function addOwnerCrownToNameTag(nameCanvas) {
         showFloatingBubble(msg.senderId, msg.name, msg.text);
       });
 
+      // ── Listen broadcast dari owner ──
+db.ref(`rooms/${roomId}/broadcast`).on("value", snap => {
+  const data = snap.val();
+  if (!data) return;
+  // Abaikan broadcast lama (lebih dari 10 detik)
+  if (Date.now() - data.ts > 10000) return;
+  showBroadcastBanner(data.text);
+});
+
       // (status set inside checkIfBanned callback)
 
     } catch(e) {
@@ -950,6 +994,16 @@ function addOwnerCrownToNameTag(nameCanvas) {
     btn.title = "Chat [T]";
     btn.onclick = toggleChat;
     document.body.appendChild(btn);
+
+    // CSS untuk animasi broadcast
+const broadcastStyle = document.createElement("style");
+broadcastStyle.textContent = `
+  @keyframes broadcastAnim {
+    from { opacity:0; transform:translateX(-50%) translateY(-20px); }
+    to   { opacity:1; transform:translateX(-50%) translateY(0); }
+  }
+`;
+document.head.appendChild(broadcastStyle);
   }
 
   function toggleChat() {
