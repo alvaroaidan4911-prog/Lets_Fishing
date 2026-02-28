@@ -516,8 +516,7 @@ function addOwnerCrownToNameTag(nameCanvas) {
 // ═══ OWNER PANEL END ═══
 
   // ── Config check ──
-  const IS_CONFIGURED = !window.FIREBASE_CONFIG.apiKey.includes("ISI_DISINI");
-
+  const IS_CONFIGURED = true;
   // ── State ──
   let db = null;
   let myId = null;
