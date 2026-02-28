@@ -1219,4 +1219,18 @@ function addOwnerCrownToNameTag(nameCanvas) {
     }, 2000);
   });
 
+  // ── Expose owner functions ke global ──
+  window.kickPlayer         = kickPlayer;
+  window.banPlayer          = banPlayer;
+  window.unbanPlayer        = unbanPlayer;
+  window.ownerBroadcast     = ownerBroadcast;
+  window.ownerSetWeather    = ownerSetWeather;
+  window.ownerGiveCoins     = ownerGiveCoins;
+  window.ownerGiveCoinsToSelf = ownerGiveCoinsToSelf;
+  window.ownerClearChat     = ownerClearChat;
+  window.ownerTeleportSelf  = ownerTeleportSelf;
+  window.ownerTeleportTo    = ownerTeleportTo;
+  window.switchOwnerTab     = switchOwnerTab;
+  window.refreshOwnerPanel  = refreshOwnerPanel;
+  
 })();
