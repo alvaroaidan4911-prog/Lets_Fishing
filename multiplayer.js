@@ -487,11 +487,9 @@ function renderWorldTab(el) {
       </div>
     </div>
   `;
-}
+    el.querySelectorAll('input').forEach(i=>i.addEventListener('keydown',e=>e.stopPropagation()));
 
-// Stop key propagation for world tab inputs (called from renderWorldTab via onclick context)
-// Input fields handle their own events via inline handlers
-  el.querySelectorAll('input').forEach(i=>i.addEventListener('keydown',e=>e.stopPropagation()));
+}
 
 function ownerTeleportBtnStyle() {
   return `padding:7px 12px;background:rgba(255,255,255,0.07);
