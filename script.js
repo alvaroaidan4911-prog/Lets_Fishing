@@ -22,7 +22,7 @@ let playerWaterY=-0.6;
 // ═══════ JETSKI STATE ═══════
 let onJetski=false,jetskiSpeed=0,nearJetski=false,jetskiOwned=false;
 const jetskiMaxSpeed=0.45;
-const jetskiSpawnPos=new THREE.Vector3(10,0.1,8);
+const jetskiSpawnPos=new THREE.Vector3(20,0.1,15);
 
 // ═══════ TENSION BAR SYSTEM ═══════
 let tensionActive=false;
