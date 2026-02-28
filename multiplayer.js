@@ -570,7 +570,7 @@ function renderBannedTab(el) {
                     background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);
                     border-radius:10px;padding:10px 14px;margin-bottom:8px">
           <span style="color:#e74c3c;font-size:13px">🚫 ${name}</span>
-          <button onclick="unbanPlayer('${name}')"
+          <button onclick="window.unbanPlayer('${name}')"
             style="padding:5px 12px;background:rgba(39,174,96,0.2);border:1px solid #27ae60;
                    border-radius:7px;color:#2ecc71;cursor:pointer;font-size:11px">
             ✅ Unban
@@ -1323,6 +1323,5 @@ function addOwnerCrownToNameTag(nameCanvas) {
   window.ownerGiveXP          = ownerGiveXP;
   window.ownerSetLevel        = ownerSetLevel;
   window.ownerGiveXPToAll     = ownerGiveXPToAll;
-  window.renderBannedTab      = renderBannedTab;
 
 })();
