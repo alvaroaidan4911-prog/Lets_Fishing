@@ -145,7 +145,7 @@ const water=new THREE.Mesh(
   new THREE.PlaneGeometry(2000,2000,80,80),
   new THREE.MeshStandardMaterial({map:waterTex,transparent:true,opacity:0.88,roughness:0.15,metalness:0.3})
 );
-water.rotation.x=-Math.PI/2; water.position.y=0; scene.add(water);
+water.rotation.x=-Math.PI/2; water.position.y=-1; scene.add(water);
 
 // ═══════ ISLAND BUILDER ═══════
 function buildIsland(x,z,radius,grassRadius,label,grassColor){
@@ -157,7 +157,7 @@ function buildIsland(x,z,radius,grassRadius,label,grassColor){
   const trunk=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.6,6,8),new THREE.MeshStandardMaterial({color:0x8B6914}));
   trunk.position.y=5; g.add(trunk);
   const leaves=new THREE.Mesh(new THREE.ConeGeometry(4,2.5,8),new THREE.MeshStandardMaterial({color:0x1a7a1a}));
-  leaves.position.y=9.5; g.add(leaves);
+  leaves.position.y=9.3; g.add(leaves);
   // Sign
   const sc=document.createElement("canvas"); sc.width=512; sc.height=128;
   const sx=sc.getContext("2d");
